@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FocusCycle</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <script type="module" src="./js/main.js" defer></script>
+</head>
+
+<body>
+
+  <header class="app-header">
+    <span class="logo">
+      <span class="logo-dot" aria-hidden="true">●</span>
+      FocusCycle
+    </span>
+
+    <button id="theme-toggle" class="btn-icon" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+      <span class="icon-light" aria-hidden="true">☀️</span>
+      <span class="icon-dark"  aria-hidden="true">🌙</span>
+    </button>
+  </header>
+
+  <main class="app-main">
+
+    <p id="phase-label" class="phase-label">Foco</p>
+
+    <div class="ring-container" role="img" aria-label="Indicador de progresso do timer">
+      <svg class="progress-ring" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <title>Progresso do timer</title>
+
+        <circle class="ring-track" cx="60" cy="60" r="54" fill="none" stroke-width="8" />
+
+ 
+        <circle
+          id="progress-arc"
+          class="ring-arc"
+          cx="60" cy="60" r="54"
+          fill="none"
+          stroke-width="8"
+          stroke-linecap="round"
+          stroke-dasharray="339.29"
+          stroke-dashoffset="0"
+          transform="rotate(-90 60 60)"
+        />
+      </svg>
+
+      <div class="timer-display" aria-live="polite" aria-atomic="true">
+        <span id="timer-minutes" class="timer-digits">25</span>
+        <span class="timer-colon">:</span>
+        <span id="timer-seconds" class="timer-digits">00</span>
+      </div>
+    </div>
+
+    <div class="controls" role="group" aria-label="Controles do timer">
+      <button id="btn-start"  class="btn-primary"   data-action="start">Iniciar</button>
+      <button id="btn-pause"  class="btn-secondary" data-action="pause"  disabled>Pausar</button>
+      <button id="btn-reset"  class="btn-ghost"     data-action="reset"  disabled>Reiniciar</button>
+    </div>
+
+    <div class="duration-selector" role="group" aria-label="Selecionar duração">
+      <button class="btn-duration active" data-duration="25" aria-pressed="true">
+        25 min
+        <span class="duration-label">Foco</span>
+      </button>
+      <button class="btn-duration" data-duration="5" aria-pressed="false">
+        5 min
+        <span class="duration-label">Pausa curta</span>
+      </button>
+      <button class="btn-duration" data-duration="15" aria-pressed="false">
+        15 min
+        <span class="duration-label">Pausa longa</span>
+      </button>
+    </div>
+
+  </main>
+
+  <section class="history-panel" aria-labelledby="history-title">
+    <h2 id="history-title" class="history-title">Hoje</h2>
+
+    <div class="history-stats">
+      <div class="stat-card">
+        <span id="sessions-count" class="stat-value">0</span>
+        <span class="stat-label">sessões</span>
+      </div>
+      <div class="stat-card">
+        <span id="focus-time" class="stat-value">0 min</span>
+        <span class="stat-label">tempo focado</span>
+      </div>
+    </div>
+
+    <ol id="session-list" class="session-list" aria-label="Lista de sessões do dia">
+      <li class="session-empty">Nenhuma sessão registrada ainda.</li>
+    </ol>
+  </section>
+
+</body>
+</html>
