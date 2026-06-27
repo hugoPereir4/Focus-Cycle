@@ -55,4 +55,51 @@ export function createTimer({ minutes = 25, onTick, onComplete } = {}) {
         remainingMs = remaining;
         onTick?.(msToDisplay(remaining));
     }
+
+    function start() {
+        const next = resolveTransition('start');
+        if (!next) return;
+
+        state = next;
+        endTime = Date.now() + remainingMs;
+        intervalId = setInterval(tick, 100);
+        tick();
+    }
+
+    function pause() {
+        const next = resolveTransition('pause');
+        if (!next) return;
+
+        stopInterval();
+        remainingMs = endTime - Date.now;
+        state = next;
+    }
+
+    function resume() {
+        const next = resolveTransition('resume');
+        if (!next) return;
+
+        state = next;
+        endTime = Date.now() + remainingMs;
+        intervalId = setInterval(tick, 100);
+        tick();
+    }
+
+    function reset() {
+        const next = resolveTransition('reset');
+        if (!next) return;
+
+        stopInterval();
+        state = next;
+        remainingMs = minutes * 60 * 1000;
+        endTime = null;
+
+        onTick?.(msToDisplay(remainingMs));
+    }
+
+    function getState() {
+        return state;
+    }
+
+    return { start, pause, resume, reset, getState};
 }
