@@ -71,7 +71,7 @@ export function createTimer({ minutes = 25, onTick, onComplete } = {}) {
         if (!next) return;
 
         stopInterval();
-        remainingMs = endTime - Date.now;
+        remainingMs = endTime - Date.now();
         state = next;
     }
 
@@ -101,5 +101,5 @@ export function createTimer({ minutes = 25, onTick, onComplete } = {}) {
         return state;
     }
 
-    return { start, pause, resume, reset, getState};
+    return { start, pause, resume, reset, getState };
 }
