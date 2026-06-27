@@ -20,6 +20,36 @@ function initTimer() {
             console.log('[FocusCycle] Sessão concluída!');
         }
     });
+
+    const btnStart = document.getElementById('btn-start');
+    const btnPause = document.getElementById('btn-pause');
+    const btnReset = document.getElementById('btn-reset');
+
+    btnStart.addEventListener('click', () => {
+        timer.start();
+
+        btnStart.disabled = true;
+        btnPause.disabled = false;
+        btnReset.disabled = false;
+    });
+    btnPause.addEventListener('click', () => {
+        if (timer.getState() === 'paused') {
+            timer.resume();
+        } else {
+            timer.pause();
+        }
+
+        btnStart.disabled = true;
+        btnPause.disabled = false;
+        btnReset.disabled = false;
+    });
+    btnReset.addEventListener('click', () => {
+        timer.reset();
+
+        btnStart.disabled = false;
+        btnPause.disabled = true;
+        btnReset.disabled = true;
+    });
 }
 
 function initThemeToggle() {
