@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initTimer() {
+    const btnStart = document.getElementById('btn-start');
+    const btnPause = document.getElementById('btn-pause');
+    const btnReset = document.getElementById('btn-reset');
+    
     const timer = createTimer({
         minutes: 25,
         onTick: ({ minutes, seconds }) => {
@@ -21,16 +25,20 @@ function initTimer() {
         }
     });
 
-    const btnStart = document.getElementById('btn-start');
-    const btnPause = document.getElementById('btn-pause');
-    const btnReset = document.getElementById('btn-reset');
+
+    function syncButtonUI(timer, { btnStart, btnPause, btnReset }) {
+        const state = timer.getState();
+
+        btnStart.disabled = state !== 'idle';
+        btnReset.disabled = state === 'idle';
+        btnPause.disabled = false;
+        btnPause.textContent = state === 'paused' ? 'Resumir' : 'Pausar';
+    }
 
     btnStart.addEventListener('click', () => {
         timer.start();
 
-        btnStart.disabled = true;
-        btnPause.disabled = false;
-        btnReset.disabled = false;
+        syncButtonUI(timer, { btnStart, btnPause, btnReset })
     });
     btnPause.addEventListener('click', () => {
         if (timer.getState() === 'paused') {
@@ -41,16 +49,12 @@ function initTimer() {
             document.getElementById('btn-pause').innerText = "Resumir"
         }
 
-        btnStart.disabled = true;
-        btnPause.disabled = false;
-        btnReset.disabled = false;
+        syncButtonUI(timer, { btnStart, btnPause, btnReset })
     });
     btnReset.addEventListener('click', () => {
         timer.reset();
 
-        btnStart.disabled = false;
-        btnPause.disabled = true;
-        btnReset.disabled = true;
+        syncButtonUI(timer, { btnStart, btnPause, btnReset })
     });
 }
 
