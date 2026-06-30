@@ -35,8 +35,10 @@ function initTimer() {
     btnPause.addEventListener('click', () => {
         if (timer.getState() === 'paused') {
             timer.resume();
+            document.getElementById('btn-pause').innerText = "Pausar"
         } else {
             timer.pause();
+            document.getElementById('btn-pause').innerText = "Resumir"
         }
 
         btnStart.disabled = true;
