@@ -26,7 +26,7 @@ function initTimer() {
     });
 
 
-    function syncButtonUI(timer, { btnStart, btnPause, btnReset }) {
+    function syncButtonUI() {
         const state = timer.getState();
 
         btnStart.disabled = state !== 'idle';
@@ -38,7 +38,7 @@ function initTimer() {
     btnStart.addEventListener('click', () => {
         timer.start();
 
-        syncButtonUI(timer, { btnStart, btnPause, btnReset })
+        syncButtonUI()
     });
     btnPause.addEventListener('click', () => {
         if (timer.getState() === 'paused') {
@@ -47,12 +47,12 @@ function initTimer() {
             timer.pause();
         }
 
-        syncButtonUI(timer, { btnStart, btnPause, btnReset })
+        syncButtonUI()
     });
     btnReset.addEventListener('click', () => {
         timer.reset();
 
-        syncButtonUI(timer, { btnStart, btnPause, btnReset })
+        syncButtonUI()
     });
 }
 
