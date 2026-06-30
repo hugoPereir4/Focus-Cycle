@@ -11,7 +11,7 @@ function initTimer() {
     const btnStart = document.getElementById('btn-start');
     const btnPause = document.getElementById('btn-pause');
     const btnReset = document.getElementById('btn-reset');
-    
+
     const timer = createTimer({
         minutes: 25,
         onTick: ({ minutes, seconds }) => {
@@ -43,10 +43,8 @@ function initTimer() {
     btnPause.addEventListener('click', () => {
         if (timer.getState() === 'paused') {
             timer.resume();
-            document.getElementById('btn-pause').innerText = "Pausar"
         } else {
             timer.pause();
-            document.getElementById('btn-pause').innerText = "Resumir"
         }
 
         syncButtonUI(timer, { btnStart, btnPause, btnReset })
