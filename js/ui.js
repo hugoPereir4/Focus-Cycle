@@ -15,3 +15,7 @@ export function updateRing(fraction) {
     progressArc.style.strokeDasharray = `${circumference} ${circumference}`;
     progressArc.style.strokeDashoffset = offset;
 }
+
+export function updatePhase(label) {
+    phaseLabel.textContent = label;
+}
