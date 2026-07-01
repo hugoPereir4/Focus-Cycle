@@ -1,9 +1,12 @@
-const timerMinutes = document.getElementById('timer-minutes');
-const timerSeconds = document.getElementById('timer-seconds');
-const progressArc = document.getElementById('progress-arc');
-const phaseLabel = document.getElementById('phase-label');
+let timerMinutes, timerSeconds, progressArc, phaseLabel, circumference;
 
-const circumference = progressArc.getTotalLength();
+export function initUI() {
+    timerMinutes = document.getElementById('timer-minutes');
+    timerSeconds = document.getElementById('timer-seconds');
+    progressArc = document.getElementById('progress-arc');
+    phaseLabel = document.getElementById('phase-label');
+    circumference = progressArc.getTotalLength();
+}
 
 export function updateDisplay({ minutes, seconds }) {
     timerMinutes.textContent = String(minutes).padStart(2, '0');

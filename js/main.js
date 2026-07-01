@@ -1,12 +1,12 @@
 import { createTimer } from "./timer.js";
-import { updateDisplay } from "./ui.js";
-import { updateRing } from "./ui.js";
+import { initUI, updateDisplay, updateRing, updatePhase } from "./ui.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[FocusCycle] main.js carregado com ES Module ✓');
 
     initThemeToggle();
     initTimer();
+    initUI();
 });
 
 function initTimer() {
@@ -19,13 +19,14 @@ function initTimer() {
         onTick: ({ minutes, seconds }) => {
             const mm = String(minutes).padStart(2, '0');
             const ss = String(seconds).padStart(2, '0');
-            console.log(`[tick] ${mm}:${ss} | state: ${timer.getState()}`);
-            updateDisplay({ minutes, seconds });
             const fraction = (minutes * 60 + seconds) / (25 * 60);
+
+            updateDisplay({ minutes, seconds });
             updateRing(fraction);
         },
         onComplete: () => {
-            console.log('[FocusCycle] Sessão concluída!');
+            updateDisplay({ minutes: 0, seconds: 0 });
+            updateRing(0);
         }
     });
 
