@@ -1,4 +1,5 @@
 import { createTimer } from "./timer.js";
+import { updateDisplay } from "./ui.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[FocusCycle] main.js carregado com ES Module ✓');
@@ -15,10 +16,10 @@ function initTimer() {
     const timer = createTimer({
         minutes: 25,
         onTick: ({ minutes, seconds }) => {
-            //implementado apenas no console, implementação com UI pendente.
             const mm = String(minutes).padStart(2, '0');
             const ss = String(seconds).padStart(2, '0');
             console.log(`[tick] ${mm}:${ss} | state: ${timer.getState()}`);
+            updateDisplay({ minutes, seconds });
         },
         onComplete: () => {
             console.log('[FocusCycle] Sessão concluída!');
