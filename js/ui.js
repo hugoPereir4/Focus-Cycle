@@ -6,6 +6,7 @@ export function initUI() {
     progressArc = document.getElementById('progress-arc');
     phaseLabel = document.getElementById('phase-label');
     circumference = progressArc.getTotalLength();
+    progressArc.style.strokeDasharray = `${circumference} ${circumference}`;
 }
 
 export function updateDisplay({ minutes, seconds }) {
@@ -15,7 +16,6 @@ export function updateDisplay({ minutes, seconds }) {
 
 export function updateRing(fraction) {
     const offset = circumference * (1 - fraction);
-    progressArc.style.strokeDasharray = `${circumference} ${circumference}`;
     progressArc.style.strokeDashoffset = offset;
 }
 

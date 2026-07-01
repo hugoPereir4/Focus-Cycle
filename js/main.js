@@ -4,9 +4,9 @@ import { initUI, updateDisplay, updateRing, updatePhase } from "./ui.js";
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[FocusCycle] main.js carregado com ES Module ✓');
 
+    initUI();
     initThemeToggle();
     initTimer();
-    initUI();
 });
 
 function initTimer() {
@@ -14,12 +14,12 @@ function initTimer() {
     const btnPause = document.getElementById('btn-pause');
     const btnReset = document.getElementById('btn-reset');
 
+    const focusMinutes = 25;
+
     const timer = createTimer({
-        minutes: 25,
+        minutes: focusMinutes,
         onTick: ({ minutes, seconds }) => {
-            const mm = String(minutes).padStart(2, '0');
-            const ss = String(seconds).padStart(2, '0');
-            const fraction = (minutes * 60 + seconds) / (25 * 60);
+            const fraction = (minutes * 60 + seconds) / (focusMinutes * 60);
 
             updateDisplay({ minutes, seconds });
             updateRing(fraction);
@@ -27,6 +27,7 @@ function initTimer() {
         onComplete: () => {
             updateDisplay({ minutes: 0, seconds: 0 });
             updateRing(0);
+            syncButtonUI();
         }
     });
 
