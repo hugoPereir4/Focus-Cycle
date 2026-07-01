@@ -1,5 +1,6 @@
 import { createTimer } from "./timer.js";
 import { updateDisplay } from "./ui.js";
+import { updateRing } from "./ui.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[FocusCycle] main.js carregado com ES Module ✓');
@@ -20,6 +21,8 @@ function initTimer() {
             const ss = String(seconds).padStart(2, '0');
             console.log(`[tick] ${mm}:${ss} | state: ${timer.getState()}`);
             updateDisplay({ minutes, seconds });
+            const fraction = (minutes * 60 + seconds) / (25 * 60);
+            updateRing(fraction);
         },
         onComplete: () => {
             console.log('[FocusCycle] Sessão concluída!');
