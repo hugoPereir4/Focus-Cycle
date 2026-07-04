@@ -39,7 +39,7 @@ function initTimer() {
 
         btnStart.disabled = state !== 'idle';
         btnReset.disabled = state === 'idle';
-        btnPause.disabled = false;
+        btnPause.disabled = state === 'idle';
         btnPause.textContent = state === 'paused' ? 'Resumir' : 'Pausar';
     }
 
