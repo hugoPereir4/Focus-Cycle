@@ -1,6 +1,7 @@
 import { createTimer } from "./timer.js";
 import { initUI, updateDisplay, updateRing, updatePhase } from "./ui.js";
 import { playStart, playPause, playComplete } from "./sound.js";
+import { saveSession, getStats } from "./storage.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[FocusCycle] main.js carregado com ES Module ✓');
@@ -8,14 +9,22 @@ document.addEventListener('DOMContentLoaded', () => {
     initUI();
     initThemeToggle();
     initTimer();
+    updateHistoryUI();
 });
+
+function updateHistoryUI() {
+    const history = getStats();
+
+    document.getElementById('sessions-count').textContent = history.sessions;
+    document.getElementById('focus-time').textContent = `${history.totalMinutes} min`;
+}
 
 function initTimer() {
     const btnStart = document.getElementById('btn-start');
     const btnPause = document.getElementById('btn-pause');
     const btnReset = document.getElementById('btn-reset');
 
-    const focusMinutes = 25;
+    const focusMinutes = 1;
 
     const timer = createTimer({
         minutes: focusMinutes,
@@ -30,6 +39,8 @@ function initTimer() {
             updateRing(0);
             syncButtonUI();
             playComplete();
+            saveSession(focusMinutes);
+            updateHistoryUI();
         }
     });
 
