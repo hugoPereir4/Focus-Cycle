@@ -33,12 +33,15 @@ function playBeep(frequency, duration, type, volume) {
 
 export function playStart() {
     playBeep(440, 0.1, 'sine', 0.5);
+    setTimeout(() => playBeep(660, 0.2, 'sine', 0.6), 200);
 }
 
 export function playComplete() {
     playBeep(880, 0.1, 'sine', 0.5);
+    setTimeout(() => playBeep(1100, 0.2, 'sine', 0.6), 200);
 }
 
 export function playPause() {
     playBeep(220, 0.1, 'sine', 0.5);
+    setTimeout(() => playBeep(330, 0.2, 'sine', 0.6), 200);
 }
