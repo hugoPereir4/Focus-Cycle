@@ -1,5 +1,6 @@
 import { createTimer } from "./timer.js";
 import { initUI, updateDisplay, updateRing, updatePhase } from "./ui.js";
+import { playStart, playPause, playComplete } from "./sound.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[FocusCycle] main.js carregado com ES Module ✓');
@@ -28,6 +29,7 @@ function initTimer() {
             updateDisplay({ minutes: 0, seconds: 0 });
             updateRing(0);
             syncButtonUI();
+            playComplete();
         }
     });
 
@@ -44,7 +46,8 @@ function initTimer() {
     btnStart.addEventListener('click', () => {
         timer.start();
 
-        syncButtonUI()
+        syncButtonUI();
+        playPause();
     });
     btnPause.addEventListener('click', () => {
         if (timer.getState() === 'paused') {
@@ -53,12 +56,13 @@ function initTimer() {
             timer.pause();
         }
 
-        syncButtonUI()
+        syncButtonUI();
+        playPause();
     });
     btnReset.addEventListener('click', () => {
         timer.reset();
 
-        syncButtonUI()
+        syncButtonUI();
     });
 }
 
