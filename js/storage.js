@@ -7,7 +7,7 @@ function getDayKey() {
     return `focus-cycle-${year}-${month}-${day}`;
 }
 
-export function loadHistory() {
+function loadHistory() {
     try {
         const data = localStorage.getItem(getDayKey());
         return JSON.parse(data) || [];
@@ -26,4 +26,11 @@ export function saveSession(minutes) {
     } catch (error) {
         console.error('[FocusCycle] Erro ao salvar o histórico:', error);
     }
+}
+
+export function getStats() {
+    const history = loadHistory();
+    const sessions = history.length;
+    const totalMinutes = history.reduce((sum, session) => sum + session.minutes, 0);
+    return { sessions, totalMinutes };
 }
