@@ -24,7 +24,7 @@ function initTimer() {
     const btnPause = document.getElementById('btn-pause');
     const btnReset = document.getElementById('btn-reset');
 
-    const focusMinutes = 1;
+    const focusMinutes = 25;
 
     const timer = createTimer({
         minutes: focusMinutes,
