@@ -47,7 +47,7 @@ function initTimer() {
         timer.start();
 
         syncButtonUI();
-        playPause();
+        playStart();
     });
     btnPause.addEventListener('click', () => {
         if (timer.getState() === 'paused') {
