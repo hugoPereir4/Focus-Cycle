@@ -7,4 +7,13 @@ function getDayKey() {
     return `focus-cycle-${year}-${month}-${day}`;
 }
 
-console.log(getDayKey());
+export function loadHistory() {
+    try {
+        const data = localStorage.getItem(getDayKey());
+        return JSON.parse(data) || [];
+        
+    } catch (error) {
+        console.error('[FocusCycle] Erro ao carregar o histórico:', error);
+        return [];
+    }
+}
