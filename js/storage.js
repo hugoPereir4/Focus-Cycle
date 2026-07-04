@@ -17,3 +17,13 @@ export function loadHistory() {
         return [];
     }
 }
+
+export function saveSession(minutes) {
+    try {
+        const history = loadHistory();
+        history.push({ completedAt: Date.now(), minutes });
+        localStorage.setItem(getDayKey(), JSON.stringify(history));
+    } catch (error) {
+        console.error('[FocusCycle] Erro ao salvar o histórico:', error);
+    }
+}
