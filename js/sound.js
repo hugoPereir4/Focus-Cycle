@@ -30,3 +30,15 @@ function playBeep(frequency, duration, type, volume) {
     oscillatorNode.start();
     oscillatorNode.stop(context.currentTime + duration);
 }
+
+export function playStart() {
+    playBeep(440, 0.1, 'sine', 0.5);
+}
+
+export function playComplete() {
+    playBeep(880, 0.1, 'sine', 0.5);
+}
+
+export function playPause() {
+    playBeep(220, 0.1, 'sine', 0.5);
+}
