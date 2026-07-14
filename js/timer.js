@@ -1,6 +1,7 @@
 const TRANSITIONS = {
     idle: {
-        start: 'running'
+        start: 'running',
+        reset: 'idle'
     },
     running: {
         pause: 'paused',
@@ -15,9 +16,10 @@ const TRANSITIONS = {
 
 export function createTimer({ minutes = 25, onTick, onComplete } = {}) {
 
+    let currentMinutes = minutes;
     let state = 'idle';
     let endTime = null;
-    let remainingMs = minutes * 60 * 1000;
+    let remainingMs = currentMinutes * 60 * 1000;
     let intervalId = null;
 
     function resolveTransition(action) {
@@ -45,7 +47,7 @@ export function createTimer({ minutes = 25, onTick, onComplete } = {}) {
         if (remaining <= 0 ) {
             stopInterval();
             state = resolveTransition('complete');
-            remainingMs = minutes * 60 * 1000;
+            remainingMs = currentMinutes * 60 * 1000;
 
             onTick?.(msToDisplay(0));
             onComplete?.();
@@ -91,7 +93,7 @@ export function createTimer({ minutes = 25, onTick, onComplete } = {}) {
 
         stopInterval();
         state = next;
-        remainingMs = minutes * 60 * 1000;
+        remainingMs = currentMinutes * 60 * 1000;
         endTime = null;
 
         onTick?.(msToDisplay(remainingMs));
@@ -101,5 +103,18 @@ export function createTimer({ minutes = 25, onTick, onComplete } = {}) {
         return state;
     }
 
-    return { start, pause, resume, reset, getState };
+    function setDuration(newMinutes) {
+        const next = resolveTransition('reset');
+        if (!next) return;
+
+        currentMinutes = newMinutes;
+        stopInterval();
+        state = next;
+        remainingMs = currentMinutes * 60 * 1000;
+        endTime = null;
+        
+        onTick?.(msToDisplay(remainingMs));
+    }
+
+    return { start, pause, resume, reset, getState, setDuration };
 }
