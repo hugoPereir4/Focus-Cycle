@@ -50,8 +50,13 @@ function initTimer() {
             updateRing(0);
             syncButtonUI();
             playComplete();
-            saveSession(currentDuration);
-            updateHistoryUI();
+            
+            if (currentDuration === 25) {
+                saveSession(currentDuration);
+                updateHistoryUI();
+            } else {
+                console.log(`[FocusCycle] Sessão de ${currentDuration} minutos concluída. Não será salva.`);
+            }
         }
     });
 
