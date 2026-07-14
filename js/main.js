@@ -24,12 +24,23 @@ function initTimer() {
     const btnPause = document.getElementById('btn-pause');
     const btnReset = document.getElementById('btn-reset');
 
-    const focusMinutes = 25;
+    const durationBtns = document.querySelectorAll('.btn-duration');
+
+    let currentDuration = 25;
+
+    durationBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            currentDuration = Number(button.dataset.duration);
+            durationBtns.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            timer.setDuration(currentDuration);
+        });
+    });
 
     const timer = createTimer({
-        minutes: focusMinutes,
+        minutes: currentDuration,
         onTick: ({ minutes, seconds }) => {
-            const fraction = (minutes * 60 + seconds) / (focusMinutes * 60);
+            const fraction = (minutes * 60 + seconds) / (currentDuration * 60);
 
             updateDisplay({ minutes, seconds });
             updateRing(fraction);
@@ -39,7 +50,7 @@ function initTimer() {
             updateRing(0);
             syncButtonUI();
             playComplete();
-            saveSession(focusMinutes);
+            saveSession(currentDuration);
             updateHistoryUI();
         }
     });
@@ -52,6 +63,10 @@ function initTimer() {
         btnReset.disabled = state === 'idle';
         btnPause.disabled = state === 'idle';
         btnPause.textContent = state === 'paused' ? 'Resumir' : 'Pausar';
+
+        durationBtns.forEach(btn => {
+            btn.disabled = state !== 'idle';
+        });
     }
 
     btnStart.addEventListener('click', () => {
