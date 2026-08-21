@@ -7,7 +7,7 @@ function getDayKey() {
     return `focus-cycle-${year}-${month}-${day}`;
 }
 
-function loadHistory() {
+export function loadHistory() {
     try {
         const data = localStorage.getItem(getDayKey());
         return JSON.parse(data) || [];
