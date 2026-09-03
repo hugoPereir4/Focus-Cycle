@@ -1,7 +1,7 @@
 import { createTimer } from "./timer.js";
 import { initUI, updateDisplay, updateRing, updatePhase } from "./ui.js";
 import { playStart, playPause, playComplete } from "./sound.js";
-import { saveSession, getStats } from "./storage.js";
+import { saveSession, getStats, loadHistory } from "./storage.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[FocusCycle] main.js carregado com ES Module ✓');
@@ -17,6 +17,9 @@ function updateHistoryUI() {
 
     document.getElementById('sessions-count').textContent = history.sessions;
     document.getElementById('focus-time').textContent = `${history.totalMinutes} min`;
+
+    const sessions = loadHistory();
+    renderSessionList(sessions);
 }
 
 function initTimer() {
@@ -121,4 +124,32 @@ function initThemeToggle() {
 
         console.log(`[FocusCycle] tema alterado para: ${next}`);
     })
+}
+
+function renderSessionList(sessions) {
+    const listContainer = document.getElementById('session-list');
+    listContainer.innerHTML = ''; // ← fora do forEach
+
+    if (sessions.length === 0) {
+        const emptyItem = document.createElement('li');
+        emptyItem.className = 'session-empty';
+        emptyItem.textContent = 'Nenhuma sessão registrada ainda.';
+        listContainer.appendChild(emptyItem);
+        return;
+    }
+
+    sessions.forEach(session => {
+        const date = new Date(session.completedAt);
+        const hours = String(date.getHours()).padStart(2, '0');
+        const mins = String(date.getMinutes()).padStart(2, '0');
+        const time = `${hours}:${mins}`;
+
+        const li = document.createElement('li');
+        li.className = 'session-item';
+        li.innerHTML = `
+            <span class="session-item__time">${time}</span>
+            <span class="session-item__duration">${session.minutes} min</span>
+        `;
+        listContainer.appendChild(li);
+    });
 }
