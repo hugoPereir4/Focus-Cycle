@@ -2,7 +2,7 @@
 
 > Gerenciador de sessões de trabalho baseado na técnica Pomodoro — 100% offline, sem dependências externas.
 
-**[→ Acessar o projeto](URL_DO_DEPLOY)**
+**[→ Acessar o projeto](https://focus-cycle-one.vercel.app/)**
 
 ---
 
