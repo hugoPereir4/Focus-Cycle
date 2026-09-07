@@ -26,16 +26,29 @@ function initTimer() {
     const btnStart = document.getElementById('btn-start');
     const btnPause = document.getElementById('btn-pause');
     const btnReset = document.getElementById('btn-reset');
-
     const durationBtns = document.querySelectorAll('.btn-duration');
+
+    const PHASE_LABELS = {
+        25: 'Foco',
+        5: 'Pausa curta',
+        15: 'Pausa longa'
+    }
 
     let currentDuration = 25;
 
     durationBtns.forEach(button => {
         button.addEventListener('click', () => {
             currentDuration = Number(button.dataset.duration);
-            durationBtns.forEach(btn => btn.classList.remove('active'));
+
+            durationBtns.forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-pressed', 'false');
+            });
             button.classList.add('active');
+            button.setAttribute('aria-pressed', 'false');
+
+            updatePhase(PHASE_LABELS[currentDuration] ?? 'Foco');
+
             timer.setDuration(currentDuration);
         });
     });
