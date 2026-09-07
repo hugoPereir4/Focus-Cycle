@@ -419,3 +419,20 @@ body.is-paused .timer-colon {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-arc { transition: none; }
+  body.is-paused .timer-colon { animation: none; opacity: 0.4; }
+  body.is-running .logo-dot { animation: none; }
+  * { transition-duration: 50ms !important; }
+}
+
+@media (max-width: 380px) {
+  .timer-digits { font-size: 2.8rem; }
+  .ring-container { width: 180px; height: 180px; }
+  .controls { gap: 0.5rem; }
+  .btn-primary, .btn-secondary, .btn-ghost {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.82rem;
+  }
+}
