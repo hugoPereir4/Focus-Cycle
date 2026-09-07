@@ -79,11 +79,6 @@ O JavaScript aplica classes de estado ao `body` (`is-running`, `is-paused`, `is-
 
 ES Modules exigem um servidor HTTP — não funcionam via `file://`.
 
-**Com Python (sem instalação adicional):**
-```bash
-python3 -m http.server 8080
-```
-
 **Com Node.js:**
 ```bash
 npx live-server
