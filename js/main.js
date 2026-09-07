@@ -91,6 +91,7 @@ function initTimer() {
 
         document.body.classList.toggle('is-running', state === 'running');
         document.body.classList.toggle('is-paused', state === 'paused');
+        document.body.classList.toggle('is-idle', state === 'idle');
     }
 
     btnStart.addEventListener('click', () => {
