@@ -98,6 +98,15 @@ body {
   transition: color var(--transition);
 }
 
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1);}
+  50% { opacity: 0.4; transform: scale(0.85);}
+}
+
+body.is-running .logo-dot {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
 .btn-icon {
   background: none;
   border: none;
@@ -197,16 +206,11 @@ body {
 }
 
 @keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.2;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
 }
 
-.is-paused .timer-colon {
+body.is-paused .timer-colon {
   animation: blink 1s step-end infinite;
 }
 

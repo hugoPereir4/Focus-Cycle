@@ -88,6 +88,9 @@ function initTimer() {
         durationBtns.forEach(btn => {
             btn.disabled = state !== 'idle';
         });
+
+        document.body.classList.toggle('is-running', state === 'running');
+        document.body.classList.toggle('is-paused', state === 'paused');
     }
 
     btnStart.addEventListener('click', () => {
